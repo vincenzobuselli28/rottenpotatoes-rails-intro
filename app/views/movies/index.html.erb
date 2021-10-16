@@ -17,11 +17,11 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th <% if @header == 'title_header'%>class='p-3 mb-2 bg-warning text-dark hilite'<%end%>>
+      <th <% if @sort == "title" %>class='p-3 mb-2 bg-warning text-dark hilite'<%end%>>
         <%= link_to "Movie Name", :sort => "title", :id => 'title_header', :ratings => @ratings_to_show.to_h {|x|[x, 1]}%></th>
       <th>Rating</th>
-      <th <% if @header == 'release_date_header'%>class='p-3 mb-2 bg-warning text-dark hilite'<%end%>>
-        <%= link_to "Release Date", :sort => "release_date", :id => 'release_date_header', :ratings => @ratings_to_show.to_h {|x|[x, 1]}%></th>
+      <th <% if @sort == 'release_date'%>class='p-3 mb-2 bg-warning text-dark hilite'<%end%>>
+        <%= link_to "Release Date", :sort => 'release_date', :id => 'release_date_header', :ratings => @ratings_to_show.to_h {|x|[x, 1]}%></th>
       <th>More Info</th>
     </tr>
   </thead>

@@ -9,26 +9,25 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     #check for checkbox ratings
-    if params[:ratings] == nil
+    if params[:ratings] == nil and session[:ratings] == nil
       @ratings_to_show = []
+    elsif session[:ratings] != nil and params[:ratings] == nil
+      @ratings_to_show = session[:ratings].keys
     else
+      session[:ratings] = params[:ratings]
       @ratings_to_show = params[:ratings].keys
     end
     
     #order by set order
-    if params[:sort] == nil
+    if params[:sort] == nil and session[:sort] == nil
       @movies = Movie.where_ratings(@ratings_to_show)
+    elsif session[:sort] != nil and params[:sort] == nil
+      @sort = session[:sort]
+      @movies = Movie.where_ratings(@ratings_to_show).order(session[:sort])
     else
+      session[:sort] = params[:sort]
+      @sort = params[:sort]
       @movies = Movie.where_ratings(@ratings_to_show).order(params[:sort])
-    end
-    @header = params[:id]
-  end
-  
-  def sort?
-    if params[:sort] == nil
-      ''
-    else
-      params[:sort]
     end
   end
 
