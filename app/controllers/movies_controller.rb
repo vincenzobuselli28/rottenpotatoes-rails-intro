@@ -8,12 +8,28 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+    #check for checkbox ratings
     if params[:ratings] == nil
       @ratings_to_show = []
     else
       @ratings_to_show = params[:ratings].keys
     end
-    @movies = Movie.where_ratings(@ratings_to_show)
+    
+    #order by set order
+    if params[:sort] == nil
+      @movies = Movie.where_ratings(@ratings_to_show)
+    else
+      @movies = Movie.where_ratings(@ratings_to_show).order(params[:sort])
+    end
+    @header = params[:id]
+  end
+  
+  def sort?
+    if params[:sort] == nil
+      ''
+    else
+      params[:sort]
+    end
   end
 
   def new
